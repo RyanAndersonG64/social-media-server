@@ -11,3 +11,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     model = Profile
     fields = ['id', 'first_name', 'last_name']
 
+class ImageSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Image
+    fields = ['title', 'created_at', 'image']
+
+# class UserPostSerializer(serializers.ModelSerializer):
+#   class Meta:
+#     model = UserPost
+#     fields = ['posted_by', 'posted_at', 'text_content',]
