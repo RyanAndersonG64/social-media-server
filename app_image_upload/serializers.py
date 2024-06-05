@@ -9,14 +9,19 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
   class Meta:
     model = Profile
-    fields = ['id', 'first_name', 'last_name']
+    fields = ['id', 'user', 'first_name', 'last_name']
+
 
 class ImageSerializer(serializers.ModelSerializer):
+  likes = serializers.IntegerField(source = 'likes.count', read_only = True)
   class Meta:
     model = Image
-    fields = ['title', 'created_at', 'image']
+    fields = ['id', 'title','created_at', 'image', 'likes']
 
-# class UserPostSerializer(serializers.ModelSerializer):
-#   class Meta:
-#     model = UserPost
-#     fields = ['posted_by', 'posted_at', 'text_content',]
+class UserPostSerializer(serializers.ModelSerializer):
+  # post_images = ImageSerializer(many=True)
+  likes = serializers.IntegerField(source = 'likes.count', read_only = True)
+  class Meta:
+    model = UserPost
+    # fields = ['id', 'title', 'posted_by', 'posted_at', 'text_content', 'like_count', 'post_images']
+    fields = '__all__'
