@@ -12,6 +12,7 @@ class Profile(models.Model):
 class Image(models.Model):
   title = models.TextField(default = 'Pointless Default Title Because Django is Being Stupid')
   posted_by = models.ForeignKey(Profile, on_delete = models.SET('Deleted User'))
+  poster_name = models.TextField()
   created_at = models.DateTimeField(auto_now_add=True)
   image = models.ImageField(upload_to='images/')
   likes = models.ManyToManyField(Profile, related_name = 'image_liked_by')
@@ -22,6 +23,7 @@ class Image(models.Model):
 class UserPost(models.Model):
   title = models.TextField(default = 'Untitled Post')
   posted_by = models.ForeignKey(Profile, on_delete = models.SET('Deleted User'))
+  poster_name = models.TextField()
   posted_at = models.DateTimeField(auto_now_add=True)
   text_content = models.TextField(max_length=1000)
   likes = models.ManyToManyField(Profile, related_name = 'post_liked_by')

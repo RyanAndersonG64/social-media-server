@@ -16,7 +16,7 @@ class ImageSerializer(serializers.ModelSerializer):
   likes = serializers.IntegerField(source = 'likes.count', read_only = True)
   class Meta:
     model = Image
-    fields = ['id', 'title','created_at', 'image', 'likes', 'posted_by']
+    fields = ['id', 'title','created_at', 'image', 'likes', 'posted_by', 'poster_name']
 
 class UserPostSerializer(serializers.ModelSerializer):
   # post_images = ImageSerializer(many=True)

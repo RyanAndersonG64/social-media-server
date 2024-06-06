@@ -36,6 +36,8 @@ def create_user(request):
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser, FormParser])
 def create_image(request):
+  poster = Profile.objects.get(id = request.data['posted_by'])
+  request.data['poster_name'] = poster.first_name
   image_serialized = ImageSerializer(data=request.data)
   if image_serialized.is_valid():
     image_serialized.save()
@@ -92,10 +94,12 @@ def add_post(request):
   print(f'HUEHUEHUEHUEHUEHUEHUEHUEHUEHUEHUEHUE {request.data}')
   poster_id = request.data['posted_by']
   poster = Profile.objects.get(id=poster_id)
+  poster_name = poster.first_name
   # post_image = Image.objects.get_or_create(image = image_data)
   post = UserPost.objects.create (
     title = request.data['title'],
     posted_by = poster, #update to find user with requested id
+    poster_name = poster_name,
     text_content = request.data['text_content'],
     # likes = poster,
     # post_images = post_image
@@ -125,6 +129,7 @@ def edit_post(request):
     request.data['posted_by'] = post.posted_by.id
     new_text = request.data['text_content']
     post.text_content = new_text
+    request.data['poster_name'] = post.posted_by.first_name
     # post.likes.set(request.data['likes'])
     print(post)
     serialized_post = UserPostSerializer(post, data = request.data)
