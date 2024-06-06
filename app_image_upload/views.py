@@ -88,7 +88,7 @@ def like_image(request):
 @permission_classes([IsAuthenticated])
 # @parser_classes([MultiPartParser, FormParser])
 def add_post(request):
-  image_data = request.data['post_images']
+  # image_data = request.data['post_images']
   print(f'HUEHUEHUEHUEHUEHUEHUEHUEHUEHUEHUEHUE {request.data}')
   poster_id = request.data['posted_by']
   poster = Profile.objects.get(id=poster_id)
@@ -125,7 +125,7 @@ def edit_post(request):
     request.data['posted_by'] = post.posted_by.id
     new_text = request.data['text_content']
     post.text_content = new_text
-    post.likes.set(request.data['likes'])
+    # post.likes.set(request.data['likes'])
     print(post)
     serialized_post = UserPostSerializer(post, data = request.data)
     print(serialized_post)
